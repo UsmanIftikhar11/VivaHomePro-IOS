@@ -2,7 +2,7 @@
   "expo": {
     "name": "Viva_Home",
     "slug": "Viva_Home",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,7 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vivahome"
+      "bundleIdentifier": "com.vivahome",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app uses camera and gallery to upload images when a user selects them."
+      }
     },
     "android": {
       "adaptiveIcon": {
