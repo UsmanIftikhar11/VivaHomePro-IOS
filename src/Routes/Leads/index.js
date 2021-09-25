@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet,View, AsyncStorage,Text, ToastAndroid, Dimensions} from 'react-native'
+import { Text, View, ScrollView, Dimensions, Image, TextInput, TouchableOpacity, SafeAreaView } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -12,35 +12,43 @@ import styles from "./styles";
 const Tab3 = createMaterialTopTabNavigator();
 
 export default class index extends React.Component {
-  constructor(){
+  constructor() {
     super();
   }
 
-  render(){
-  return (
-    <Tab3.Navigator
-     style={{backgroundColor:"#f5f4f9"}} 
-     Tab2BarOptions={{
-        style: { marginTop: 20, borderRadius: 10, width: Dimensions.get('screen').width-40, alignSelf:'center', height: 50,}
-    }}
-    
-    >
+  render() {
+    return (
+      <>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.headerView}>
+            <View style={styles.headerInnserView}>
+              <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <TouchableOpacity>
+                  {/* <Image source={require('../../../assets/leftarrow.png')} style={styles.headericon} /> */}
+                </TouchableOpacity>
+                <Text style={styles.headertext} >Leads</Text>
+              </View>
+            </View>
+          </View>
+          <Tab3.Navigator
+            style={{ backgroundColor: "#f5f4f9" }}
+            Tab2BarOptions={{
+              style: { marginTop: 20, borderRadius: 10, width: Dimensions.get('screen').width - 40, alignSelf: 'center', height: 50 }
+            }} >
 
-      <Tab3.Screen name="Active" component={Active} options={{
-           tabBarLabel:()=> <Text style={styles.TabStyle}>ACTIVE</Text>
-      }} />
+            <Tab3.Screen name="Active" component={Active} options={{
+              tabBarLabel: () => <Text style={styles.TabStyle}>ALL</Text>
+            }} />
+            <Tab3.Screen name="Cancel" component={Cancel} options={{
+              tabBarLabel: () => <Text style={styles.TabStyle}>DRAFTS</Text>
+            }} />
+            <Tab3.Screen name="Completed" component={Completed} options={{
+              tabBarLabel: () => <Text style={styles.TabStyle}>SENT</Text>
+            }} />
 
-      <Tab3.Screen name="Cancel" component={Cancel} options={{
-           tabBarLabel:()=> <Text style={styles.TabStyle}>CANCEL</Text>
-      }}  />
-
-      <Tab3.Screen name="Completed" component={Completed} options={{  
-           tabBarLabel:()=> <Text style={styles.TabStyle}>COMPLETED</Text>
-      }}  />
-      
-    </Tab3.Navigator>
-  
-    
+          </Tab3.Navigator>
+        </SafeAreaView>
+      </>
     );
   }
 }

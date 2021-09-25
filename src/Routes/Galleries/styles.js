@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
     leftArrowStyle: {
         width: Width*0.05,
         height: Height * 0.04,
-        tintColor:'#29b6f6'
-    
-        
+        tintColor:'#29b6f6',
+        paddingLeft:5        
     },
     replayTemplatesStyle: {
         fontSize: 18,

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView,Dimensions,Image,TextInput, TouchableOpacity,SafeAreaView } from "react-native";
+import { Text, View, ScrollView,Dimensions,Image,TextInput, TouchableOpacity,SafeAreaView,Linking } from "react-native";
+import { email } from "react-native-communications";
 const Width = Dimensions.get("screen").width;
 const Height = Dimensions.get("screen").height;
 import Mailer from 'react-native-mail';
@@ -8,6 +9,8 @@ import styles from "./styles";
 
 class index extends Component {
   constructor(props) {
+    debugger;
+    console.log("page called");
     super(props);
     this.state = {
       email: '',
@@ -20,38 +23,45 @@ class index extends Component {
   }
 
   handleEmail = () => {
-    console.log("hai");
-    Mailer.mail({
-      subject: 'need help',
-      recipients: ['khabdulmuqeet98@gmail.com'],
-      ccRecipients: ['khabdulmuqeet98@gmail.com'],
-      // bccRecipients: ['supportBCC@example.com'],
-      body: '<b>Testing Email</b>',
-      // customChooserTitle: 'This is my new title', // Android only (defaults to "Send Mail")
-      isHTML: true,
-      attachments: [{
-        // Specify either `path` or `uri` to indicate where to find the file data.
-        // The API used to create or locate the file will usually indicate which it returns.
-        // An absolute path will look like: /cacheDir/photos/some image.jpg
-        // A URI starts with a protocol and looks like: content://appname/cacheDir/photos/some%20image.jpg
-        path: '', // The absolute path of the file from which to read data.
-        uri: '', // The uri of the file from which to read the data.
-        // Specify either `type` or `mimeType` to indicate the type of data.
-        type: '', // Mime Type: jpg, png, doc, ppt, html, pdf, csv
-        mimeType: '', // - use only if you want to use custom type
-        name: '', // Optional: Custom filename for attachment
-      }]
-    }, (error, event) => {
-      Alert.alert(
-        error,
-        event,
-        [
-          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
-          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
-        ],
-        { cancelable: true }
-      )
-    });
+    console.log("handle email clicked");
+    Linking.openURL('mailto:'+this.state.email+'?subject='+this.state.title+'&body=Description');
+    // try{
+    //   Mailer.mail({
+    //     subject: 'need help',
+    //     recipients: ['khabdulmuqeet98@gmail.com'],
+    //     ccRecipients: ['khabdulmuqeet98@gmail.com'],
+    //     // bccRecipients: ['supportBCC@example.com'],
+    //     body: '<b>Testing Email</b>',
+    //     // customChooserTitle: 'This is my new title', // Android only (defaults to "Send Mail")
+    //     isHTML: true,
+    //     attachments: [{
+    //       // Specify either `path` or `uri` to indicate where to find the file data.
+    //       // The API used to create or locate the file will usually indicate which it returns.
+    //       // An absolute path will look like: /cacheDir/photos/some image.jpg
+    //       // A URI starts with a protocol and looks like: content://appname/cacheDir/photos/some%20image.jpg
+    //       path: '', // The absolute path of the file from which to read data.
+    //       uri: '', // The uri of the file from which to read the data.
+    //       // Specify either `type` or `mimeType` to indicate the type of data.
+    //       type: '', // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+    //       mimeType: '', // - use only if you want to use custom type
+    //       name: '', // Optional: Custom filename for attachment
+    //     }]
+    //   }, (error, event) => {
+    //     Alert.alert(
+    //       error,
+    //       event,
+    //       [
+    //         {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+    //         {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+    //       ],
+    //       { cancelable: true }
+    //     )
+    //   });
+    // }
+    // catch (e) {
+    //   console.log(e);
+    // }
+    
   }
 
   render() {
@@ -65,7 +75,8 @@ class index extends Component {
               <Text style={styles.TitleText}>Phone</Text>
               <TextInput
               style={{ paddingLeft: 15, flex: 1}}
-              //  value="1525412"
+              onChangeText={(phone) => this.setState({phone})}
+              value={this.state.phone}
                placeholder="(123) 456-7890"
                />
             </View>
@@ -74,6 +85,8 @@ class index extends Component {
               <Text style={styles.TitleText}>Email</Text>
               <TextInput
               style={{ paddingLeft: 15, flex: 1}}
+              value={this.state.email}
+              onChangeText={(email) => this.setState({email})}
               placeholder="abc@gmail.com"
                />
             </View>
@@ -85,6 +98,8 @@ class index extends Component {
               <Text style={styles.TitleText}>Title</Text>
               <TextInput
               style={{ paddingLeft: 15, flex: 1}}
+              value={this.state.title}
+              onChangeText={(title) => this.setState({title})}
               placeholder="Hello Testing"
                />
             </View>
@@ -93,12 +108,12 @@ class index extends Component {
               <TouchableOpacity>
               <Image source={require('../../../assets/camera.png')} style={{height: 30, width: 30}}/>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonStyle} onPress={this.handleEmail()} >
+              <TouchableOpacity style={styles.buttonStyle} onPress={() => this.handleEmail()} >
                 <Text style={{alignSelf:'center'}}>Send</Text>
               </TouchableOpacity>
             </View>
         </View>
-        </SafeAreaView>
+        </SafeAreaView> 
       </ScrollView>
     );
   }
