@@ -106,7 +106,7 @@ class index extends Component {
 
             <View style={styles.bottomView}>
               <TouchableOpacity>
-              <Image source={require('../../../assets/camera.png')} style={{height: 30, width: 30}}/>
+              {/* <Image source={require('../../../assets/camera.png')} style={{height: 30, width: 30}}/> */}
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonStyle} onPress={() => this.handleEmail()} >
                 <Text style={{alignSelf:'center'}}>Send</Text>
